@@ -25,6 +25,7 @@ fun getSignals(): MutableSet<SignalInfo> = mutableSetOf(
 
     SnapshotSignals.gameSaved,
     SnapshotSignals.gameLoaded,
+    SnapshotSignals.gameDeleted,
     SnapshotSignals.conflictEmitted,
     SnapshotSignals.snapshotsLoaded,
 
@@ -175,12 +176,7 @@ object SnapshotSignals {
      *
      * @return A boolean indicating if the game was saved or not, and the name and description of the save file.
      */
-    val gameSaved = SignalInfo(
-        "gameSaved",
-        Boolean::class.javaObjectType,
-        String::class.java,
-        String::class.java
-    )
+    val gameSaved = SignalInfo("gameSaved", Boolean::class.javaObjectType)
 
     /**
      * This signal is emitted when calling the [com.jacobibanez.plugin.android.godotplaygameservices.GodotAndroidPlugin.loadGame] method
@@ -189,6 +185,8 @@ object SnapshotSignals {
      * @return A [Dictionary] representing a [com.google.android.gms.games.snapshot.Snapshot](https://developers.google.com/android/reference/com/google/android/gms/games/snapshot/Snapshot).
      */
     val gameLoaded = SignalInfo("gameLoaded", String::class.java)
+
+    val gameDeleted = SignalInfo("gameDeleted", Boolean::class.javaObjectType)
 
     /**
      * This signal is emitted when saving or loading a game, whenever a conflict occurs.

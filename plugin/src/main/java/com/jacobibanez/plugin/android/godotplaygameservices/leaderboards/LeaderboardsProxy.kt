@@ -31,7 +31,7 @@ class LeaderboardsProxy(
     private val showLeaderboardForTimeSpanAndCollectionRequestCode = 9005
 
     fun showAllLeaderboards() {
-        Log.d(tag, "Showing all leaderboards")
+        Log.d(tag, "Sh  owing all leaderboards")
         leaderboardsClient.allLeaderboardsIntent.addOnSuccessListener { intent ->
             ActivityCompat.startActivityForResult(
                 godot.getActivity()!!,

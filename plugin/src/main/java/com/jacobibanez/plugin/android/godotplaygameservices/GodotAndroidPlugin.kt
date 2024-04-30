@@ -2,8 +2,10 @@ package com.jacobibanez.plugin.android.godotplaygameservices
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import com.google.android.gms.games.PlayGamesSdk
 import com.jacobibanez.plugin.android.godotplaygameservices.achievements.AchievementsProxy
 import com.jacobibanez.plugin.android.godotplaygameservices.events.EventsProxy
@@ -411,13 +413,8 @@ class GodotAndroidPlugin(godot: Godot) : GodotPlugin(godot) {
      * @param progressValue The progress value for this snapshot.
      */
     @UsedByGodot
-    fun saveGame(
-        fileName: String,
-        description: String,
-        saveData: ByteArray,
-        playedTimeMillis: Long,
-        progressValue: Long
-    ) = snapshotsProxy.saveGame(fileName, description, saveData, playedTimeMillis, progressValue)
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun saveGame(fileName: String, data: String) = snapshotsProxy.saveGame(fileName, data)
 
     /**
      * Loads game data from the Google Cloud. This method emits the [com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.gameLoaded]
@@ -428,8 +425,7 @@ class GodotAndroidPlugin(godot: Godot) : GodotPlugin(godot) {
      * @param createIfNotFound False by default. If true, the snapshot will be created if one cannot be found.
      */
     @UsedByGodot
-    fun loadGame(fileName: String, createIfNotFound: Boolean = false) =
-        snapshotsProxy.loadGame(fileName, createIfNotFound)
+    fun loadGame(fileName: String) = snapshotsProxy.loadGame(fileName)
 
     /**
      * Loads the list of [com.google.android.gms.games.snapshot.SnapshotMetadata](https://developers.google.com/android/reference/com/google/android/gms/games/snapshot/SnapshotMetadata)
@@ -448,7 +444,7 @@ class GodotAndroidPlugin(godot: Godot) : GodotPlugin(godot) {
      * @param snapshotId The snapshot identifier.
      */
     @UsedByGodot
-    fun deleteSnapshot(snapshotId: String) = snapshotsProxy.deleteSnapshot(snapshotId)
+    fun deleteGame(fileName: String) = snapshotsProxy.deleteGame(fileName)
 
     /**
      * Increments an event specified by eventId by the given number of steps.
